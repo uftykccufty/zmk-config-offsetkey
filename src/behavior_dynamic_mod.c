@@ -31,6 +31,8 @@ struct behavior_dynamic_mod_data {
     uint32_t position;
 };
 
+#if IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
+
 static sys_slist_t dynamic_mod_list;
 
 static int behavior_dynamic_mod_init(const struct device *dev) {
@@ -44,7 +46,7 @@ static int behavior_dynamic_mod_init(const struct device *dev) {
 
 static int on_dynamic_mod_pressed(struct zmk_behavior_binding *binding,
                                    struct zmk_behavior_binding_event event) {
-    const struct device *dev = zmk_behavior_get_binding(binding->behavior_dev);
+    const struct device *dev = device_get_binding(binding->behavior_dev);
     struct behavior_dynamic_mod_data *data = dev->data;
     const struct behavior_dynamic_mod_config *config = dev->config;
 
@@ -58,7 +60,7 @@ static int on_dynamic_mod_pressed(struct zmk_behavior_binding *binding,
 
 static int on_dynamic_mod_released(struct zmk_behavior_binding *binding,
                                     struct zmk_behavior_binding_event event) {
-    const struct device *dev = zmk_behavior_get_binding(binding->behavior_dev);
+    const struct device *dev = device_get_binding(binding->behavior_dev);
     struct behavior_dynamic_mod_data *data = dev->data;
     const struct behavior_dynamic_mod_config *config = dev->config;
 
@@ -116,6 +118,29 @@ static int dynamic_mod_position_listener(const zmk_event_t *eh) {
 
 ZMK_LISTENER(dynamic_mod_position_listener, dynamic_mod_position_listener);
 ZMK_SUBSCRIPTION(dynamic_mod_position_listener, zmk_position_state_changed);
+
+#else /* peripheral side: stub implementation */
+
+static int behavior_dynamic_mod_init(const struct device *dev) {
+    return 0;
+}
+
+static int on_dynamic_mod_pressed(struct zmk_behavior_binding *binding,
+                                   struct zmk_behavior_binding_event event) {
+    return ZMK_BEHAVIOR_OPAQUE;
+}
+
+static int on_dynamic_mod_released(struct zmk_behavior_binding *binding,
+                                    struct zmk_behavior_binding_event event) {
+    return ZMK_BEHAVIOR_OPAQUE;
+}
+
+static const struct behavior_driver_api behavior_dynamic_mod_driver_api = {
+    .binding_pressed = on_dynamic_mod_pressed,
+    .binding_released = on_dynamic_mod_released,
+};
+
+#endif
 
 #define DYN_MOD_INST(n)                                                                            \
     static struct behavior_dynamic_mod_data behavior_dynamic_mod_data_##n = {};                    \
