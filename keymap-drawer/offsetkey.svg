@@ -625,9 +625,8 @@ rect.held, rect.combo.held {
 <g transform="translate(245, 252)" class="key keypos-65">
 <rect rx="6" ry="6" x="-33" y="-26" width="66" height="52" class="key side"/>
 <rect rx="4" ry="4" x="-27" y="-24" width="54" height="40" class="key"/>
-<a href="#layer1">
-<text x="0" y="-4" class="key tap layer-activator">layer1</text>
-</a></g>
+<text x="0" y="-4" class="key tap"><tspan style="font-size: 75%">&amp;dyn_alt</tspan></text>
+</g>
 <g transform="translate(343, 252)" class="key keypos-66">
 <rect rx="6" ry="6" x="-61" y="-26" width="122" height="52" class="key side"/>
 <rect rx="4" ry="4" x="-55" y="-24" width="110" height="40" class="key"/>
@@ -1065,9 +1064,10 @@ rect.held, rect.combo.held {
 <rect rx="4" ry="4" x="-27" y="-24" width="54" height="40" class="key trans"/>
 <use href="#mdi:transfer" xlink:href="#mdi:transfer" x="-9" y="-13" height="18" width="18.0" class="key trans tap glyph mdi:transfer"/>
 </g>
-<g transform="translate(245, 252)" class="key held keypos-65">
-<rect rx="6" ry="6" x="-33" y="-26" width="66" height="52" class="key held side"/>
-<rect rx="4" ry="4" x="-27" y="-24" width="54" height="40" class="key held"/>
+<g transform="translate(245, 252)" class="key trans keypos-65">
+<rect rx="6" ry="6" x="-33" y="-26" width="66" height="52" class="key trans side"/>
+<rect rx="4" ry="4" x="-27" y="-24" width="54" height="40" class="key trans"/>
+<use href="#mdi:transfer" xlink:href="#mdi:transfer" x="-9" y="-13" height="18" width="18.0" class="key trans tap glyph mdi:transfer"/>
 </g>
 <g transform="translate(343, 252)" class="key trans keypos-66">
 <rect rx="6" ry="6" x="-61" y="-26" width="122" height="52" class="key trans side"/>
