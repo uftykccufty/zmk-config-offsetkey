@@ -71,7 +71,7 @@
         };
         dyn_shift: dyn_shift {
             compatible = "zmk,behavior-dynamic-mod";
-            label = "DYN_SHIFT";
+            label = "DYN_GUI";
             #binding-cells = <0>;
             layer = <1>;
             mod = <LSHFT>;
