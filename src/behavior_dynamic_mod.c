@@ -44,8 +44,9 @@ static int behavior_dynamic_mod_init(const struct device *dev) {
 
 static int on_dynamic_mod_pressed(struct zmk_behavior_binding *binding,
                                    struct zmk_behavior_binding_event event) {
-    struct behavior_dynamic_mod_data *data = binding->behavior_dev->data;
-    const struct behavior_dynamic_mod_config *config = binding->behavior_dev->config;
+    const struct device *dev = zmk_behavior_get_binding(binding->behavior_dev);
+    struct behavior_dynamic_mod_data *data = dev->data;
+    const struct behavior_dynamic_mod_config *config = dev->config;
 
     data->active = true;
     data->modifier_mode = false;
@@ -57,8 +58,9 @@ static int on_dynamic_mod_pressed(struct zmk_behavior_binding *binding,
 
 static int on_dynamic_mod_released(struct zmk_behavior_binding *binding,
                                     struct zmk_behavior_binding_event event) {
-    struct behavior_dynamic_mod_data *data = binding->behavior_dev->data;
-    const struct behavior_dynamic_mod_config *config = binding->behavior_dev->config;
+    const struct device *dev = zmk_behavior_get_binding(binding->behavior_dev);
+    struct behavior_dynamic_mod_data *data = dev->data;
+    const struct behavior_dynamic_mod_config *config = dev->config;
 
     if (data->modifier_mode) {
         zmk_hid_keyboard_release(config->mod_keycode);
