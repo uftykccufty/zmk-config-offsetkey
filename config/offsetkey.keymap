@@ -71,15 +71,15 @@
         };
         dyn_shift: dyn_shift {
             compatible = "zmk,behavior-dynamic-mod";
-            label = "DYN_GUI";
+            label = "DYN_SHIFT";
             #binding-cells = <0>;
             layer = <1>;
             mod = <LSHFT>;
             trigger-positions = <16>;
         };
-        dyn_shift: dyn_gui {
+        dyn_gui: dyn_gui {
             compatible = "zmk,behavior-dynamic-mod";
-            label = "DYN_SHIFT";
+            label = "DYN_GUI";
             #binding-cells = <0>;
             layer = <1>;
             mod = <LGUI>;
