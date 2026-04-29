@@ -1,0 +1,6 @@
+config ZMK_BEHAVIOR_DYNAMIC_MOD
+    bool "Dynamic Modifier / Layer Switch Behavior"
+    default n
+    help
+      Enable a behavior that acts as a momentary layer key, but transforms
+      into a held modifier when a specified trigger key is pressed.
