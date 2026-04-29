@@ -15,3 +15,7 @@ properties:
     type: array
     required: true
     description: Key positions that trigger modifier mode
+  label:
+    type: string
+    required: false
+    description: Human readable label for the behavior instance
