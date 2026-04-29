@@ -57,9 +57,9 @@
             compatible = "zmk,behavior-dynamic-mod";
             label = "DYN_ALT";
             #binding-cells = <0>;
-            layer = <1>;                              //which momentary layer
+            layer = <1>;                              // which momentary layer
             mod = <LALT>;
-            trigger-positions = <16>;                 //which key(s) to trigger  format： <"position-number1" "position-number2" ...>
+            trigger-positions = <16>;                 // which key(s) to trigger  format： <"position-number1" "position-number2" ...>
         };
         dyn_ctrl: dyn_ctrl {
             compatible = "zmk,behavior-dynamic-mod";
