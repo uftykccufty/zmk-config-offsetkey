@@ -46,7 +46,7 @@ static int behavior_dynamic_mod_init(const struct device *dev) {
 
 static int on_dynamic_mod_pressed(struct zmk_behavior_binding *binding,
                                    struct zmk_behavior_binding_event event) {
-    const struct device *dev = device_get_binding(binding->behavior_dev);
+    const struct device *dev = zmk_behavior_get_binding(binding->behavior_dev);
     struct behavior_dynamic_mod_data *data = dev->data;
     const struct behavior_dynamic_mod_config *config = dev->config;
 
@@ -60,7 +60,7 @@ static int on_dynamic_mod_pressed(struct zmk_behavior_binding *binding,
 
 static int on_dynamic_mod_released(struct zmk_behavior_binding *binding,
                                     struct zmk_behavior_binding_event event) {
-    const struct device *dev = device_get_binding(binding->behavior_dev);
+    const struct device *dev = zmk_behavior_get_binding(binding->behavior_dev);
     struct behavior_dynamic_mod_data *data = dev->data;
     const struct behavior_dynamic_mod_config *config = dev->config;
 
@@ -119,6 +119,19 @@ static int dynamic_mod_position_listener(const zmk_event_t *eh) {
 ZMK_LISTENER(dynamic_mod_position_listener, dynamic_mod_position_listener);
 ZMK_SUBSCRIPTION(dynamic_mod_position_listener, zmk_position_state_changed);
 
+#define DYN_MOD_INST(n)                                                                            \
+    static struct behavior_dynamic_mod_data behavior_dynamic_mod_data_##n = {};                    \
+    static const struct behavior_dynamic_mod_config behavior_dynamic_mod_config_##n = {            \
+        .layer = DT_INST_PROP(n, layer),                                                           \
+        .mod_keycode = DT_INST_PROP(n, mod),                                                       \
+        .trigger_count = DT_INST_PROP_LEN(n, trigger_positions),                                   \
+        .trigger_positions = DT_INST_PROP(n, trigger_positions),                                   \
+    };                                                                                             \
+    BEHAVIOR_DT_INST_DEFINE(n, behavior_dynamic_mod_init, NULL,                                    \
+                          &behavior_dynamic_mod_data_##n, &behavior_dynamic_mod_config_##n,        \
+                          POST_KERNEL, CONFIG_KERNEL_INIT_PRIORITY_DEFAULT,                        \
+                          &behavior_dynamic_mod_driver_api);
+
 #else /* peripheral side: stub implementation */
 
 static int behavior_dynamic_mod_init(const struct device *dev) {
@@ -140,8 +153,6 @@ static const struct behavior_driver_api behavior_dynamic_mod_driver_api = {
     .binding_released = on_dynamic_mod_released,
 };
 
-#endif
-
 #define DYN_MOD_INST(n)                                                                            \
     static struct behavior_dynamic_mod_data behavior_dynamic_mod_data_##n = {};                    \
     static const struct behavior_dynamic_mod_config behavior_dynamic_mod_config_##n = {            \
@@ -150,9 +161,11 @@ static const struct behavior_driver_api behavior_dynamic_mod_driver_api = {
         .trigger_count = DT_INST_PROP_LEN(n, trigger_positions),                                   \
         .trigger_positions = DT_INST_PROP(n, trigger_positions),                                   \
     };                                                                                             \
-    DEVICE_DT_INST_DEFINE(n, behavior_dynamic_mod_init, NULL,                                    \
+    BEHAVIOR_DT_INST_DEFINE(n, behavior_dynamic_mod_init, NULL,                                    \
                           &behavior_dynamic_mod_data_##n, &behavior_dynamic_mod_config_##n,        \
                           POST_KERNEL, CONFIG_KERNEL_INIT_PRIORITY_DEFAULT,                        \
                           &behavior_dynamic_mod_driver_api);
+
+#endif
 
 DT_INST_FOREACH_STATUS_OKAY(DYN_MOD_INST)
