@@ -57,8 +57,32 @@
             compatible = "zmk,behavior-dynamic-mod";
             label = "DYN_ALT";
             #binding-cells = <0>;
-            layer = <1>;
+            layer = <1>;                              //which momentary layer
             mod = <LALT>;
+            trigger-positions = <16>;                 //which key(s) to trigger  format： <"position-number1" "position-number2" ...>
+        };
+        dyn_ctrl: dyn_ctrl {
+            compatible = "zmk,behavior-dynamic-mod";
+            label = "DYN_CTRL";
+            #binding-cells = <0>;
+            layer = <1>;
+            mod = <LCTRL>;
+            trigger-positions = <16>;
+        };
+        dyn_shift: dyn_shift {
+            compatible = "zmk,behavior-dynamic-mod";
+            label = "DYN_SHIFT";
+            #binding-cells = <0>;
+            layer = <1>;
+            mod = <LSHFT>;
+            trigger-positions = <16>;
+        };
+        dyn_shift: dyn_gui {
+            compatible = "zmk,behavior-dynamic-mod";
+            label = "DYN_SHIFT";
+            #binding-cells = <0>;
+            layer = <1>;
+            mod = <LGUI>;
             trigger-positions = <16>;
         };
     };
